@@ -18,4 +18,4 @@ spec:
       - name: sc-container 
         image: localhost:32000/syl/sc:registry 
         ports: 
-        - containerPort: 5000
+        - containerPort: 3000

@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "sc-chart.fullname" . }}
+  name: {{ include "sc-backend-chart.fullname" . }}
   labels:
-    {{- include "sc-chart.labels" . | nindent 4 }}
+    {{- include "sc-backend-chart.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "sc-chart.fullname" . }}
+    name: {{ include "sc-backend-chart.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

@@ -1,11 +1,11 @@
-# Default values for sc-chart.
+# Default values for sc-backend-chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 3
 
 image:
-  repository: localhost:32000/syl/sc
+  repository: localhost:32000/syl/sc2:registry
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
