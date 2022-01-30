@@ -1,21 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sc-restapi-deployment
-  labels:
-    app: sc-restapi
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: sc-restapi
-  template:
-    metadata:
-      labels:
-        app: sc-restapi
-    spec:
-      containers:
-        - name: sc-restapi-container
-          image: sc-group25/sc-restapi:v1
-          ports:
-            - containerPort: 5000
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: sc-backend-deployment 
+  labels: 
+    app: sc-backend 
+spec: 
+  replicas: 3 
+  selector: 
+    matchLabels: 
+      app: sc-backend 
+  template: 
+    metadata: 
+      labels: 
+        app: sc-backend 
+    spec: 
+      containers: 
+      - name: sc-backend-container 
+        image: localhost:32000/syl/sc2:registry 
+        ports: 
+        - containerPort: 3000 
