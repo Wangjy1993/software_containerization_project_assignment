@@ -32,11 +32,24 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.image.containerPort }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: "spring.datasource.url"
+              value: jdbc:postgresql://localhost:5432/Software Containerization
+            - name: "spring.datasource.username"
+              valueFrom:
+                secretKeyRef:
+                  key:  username
+                  name: {{ .Release.Name }}-auth
+            - name: "spring.datasource.password"
+              valueFrom:
+                secretKeyRef:
+                  key:  password
+                  name: {{ .Release.Name }}-auth
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -5,10 +5,11 @@
 replicaCount: 3
 
 image:
-  repository: localhost:32000/syl/sc2:registry
+  repository: europe-west4-docker.pkg.dev/sc-group25/sc-group25-rest-api-docker/sc-restapi
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: v1
+  containerPort: 8080
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +38,11 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 8080
+  nodePort: 30010
+  targetPort: 8080
+
 
 ingress:
   enabled: false
@@ -77,3 +81,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+password: password
+
+username: postgres
