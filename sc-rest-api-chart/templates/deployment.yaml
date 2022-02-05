@@ -39,7 +39,10 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: "spring.datasource.url"
-              value: {{ .Values.image.datasourceUrl }}
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ include "sc-backend-chart.fullname" . }}
+                  key: datasourceUrl
             - name: "spring.datasource.username"
               valueFrom:
                 secretKeyRef:

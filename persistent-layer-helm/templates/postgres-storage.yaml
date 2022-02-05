@@ -1,29 +1,21 @@
 kind: PersistentVolume 
 apiVersion: v1 
 metadata: 
-  name: postgres-pv-volume 
-  labels: 
-    type: local 
-    app: postgres 
-spec: 
-  storageClassName: microk8s-hostpath 
+  name: {{ include "common.names.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:  
   capacity: 
-    storage: 5Gi 
-  accessModes: 
-    - ReadWriteMany 
+    storage: {{ .Values.primary.persistence.size | quote }} 
+  accessModes:
+        {{- range .Values.primary.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
   hostPath: 
-    path: "/Users/user/Downloads/sc/postgre/data" 
---- 
-kind: PersistentVolumeClaim 
-apiVersion: v1 
-metadata: 
-  name: postgres-pv-claim 
-  labels: 
-     app: postgres 
-spec: 
-  storageClassName: microk8s-hostpath 
-  accessModes: 
-    - ReadWriteMany 
-  resources: 
-    requests: 
-      storage: 5Gi 
+    path: {{ .Values.primary.persistence.mountPath | quote }}
