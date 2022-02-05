@@ -84,5 +84,5 @@ affinity: {}
 
 # database configuration
 databasePassword: password
-databaseUsername: postgres
+databaseUsername: postgresadmin
 datasourceUrl: jdbc:postgresql://localhost:5432/SoftwareContainerization
