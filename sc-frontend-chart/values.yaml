@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: localhost:32000/syl/sc:registry
+  repository: europe-west4-docker.pkg.dev/sc-group25/sc-frontend/react-frontend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
