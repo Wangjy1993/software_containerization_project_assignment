@@ -82,6 +82,7 @@ tolerations: []
 
 affinity: {}
 
-password: password
-
-username: postgres
+# database configuration
+databasePassword: password
+databaseUsername: postgres
+datasourceUrl: jdbc:postgresql://localhost:5432/SoftwareContainerization

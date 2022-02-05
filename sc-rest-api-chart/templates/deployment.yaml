@@ -39,7 +39,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: "spring.datasource.url"
-              value: jdbc:postgresql://localhost:5432/Software Containerization
+              value: {{ .Values.image.datasourceUrl }}
             - name: "spring.datasource.username"
               valueFrom:
                 secretKeyRef:
