@@ -4,6 +4,7 @@ metadata:
   name: {{ include "sc-backend-chart.fullname" . }}
   labels:
     {{- include "sc-backend-chart.labels" . | nindent 4 }}
+    app: {{ .Release.Name }}
 spec:
   type: {{ .Values.service.type }}
   ports:

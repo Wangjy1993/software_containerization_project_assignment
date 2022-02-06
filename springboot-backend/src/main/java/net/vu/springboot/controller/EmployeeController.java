@@ -34,6 +34,12 @@ public class EmployeeController {
 		return employeeRepository.findAll();
 	}		
 	
+	// get all employees
+	@GetMapping("/employees/hello")
+	public String getEmployeeHello(){
+		return "Hello";
+	}	
+
 	// create employee rest api
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) {

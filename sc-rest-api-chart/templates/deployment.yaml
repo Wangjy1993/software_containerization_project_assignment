@@ -11,6 +11,8 @@ spec:
   selector:
     matchLabels:
       {{- include "sc-backend-chart.selectorLabels" . | nindent 6 }}
+      app: {{ .Release.Name }}
+      version: {{ .Chart.Version }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,6 +21,8 @@ spec:
       {{- end }}
       labels:
         {{- include "sc-backend-chart.selectorLabels" . | nindent 8 }}
+        app: {{ .Release.Name }}
+        version: {{ .Chart.Version }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -53,6 +57,8 @@ spec:
                 secretKeyRef:
                   key:  password
                   name: {{ .Release.Name }}-auth
+            - name: VERSION
+              value: {{ .Chart.Version }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

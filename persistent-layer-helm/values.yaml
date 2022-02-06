@@ -34,8 +34,7 @@ postgresql:
         ##   label: access
         ##
         podSelector: 
-          app.kubernetes.io/instance: sc-rest-api
-          app.kubernetes.io/name: sc-rest-api
+          app: sc-rest-api
     egressRules:
       # Deny connections to external. This is not compatible with an external database.
       denyConnectionsToExternal: true
