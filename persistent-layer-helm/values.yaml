@@ -2,27 +2,44 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 3
+postgresql:
+  global:
+    postgresql:
+      auth:
+        postgresPassword: "password"
+        username: "postgresadmin"
+        password: "password"
+        database: "SoftwareContainerization"
+  primary:
+    persistence:
+        mountPath: /sc/postgresql
+        accessModes:
+          - ReadWriteOnce
+        size: 8Gi
 
-image:
-  repository: europe-west4-docker.pkg.dev/sc-group25/sc-frontend/react-frontend
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  networkPolicy:
+    enabled: true
+    ## Ingress Rules
+    ##
+    ingressRules:
+      ## @param networkPolicy.ingressRules.primaryAccessOnlyFrom.enabled Enable ingress rule that makes PostgreSQL primary node only accessible from a particular origin.
+      ## @param networkPolicy.ingressRules.primaryAccessOnlyFrom.namespaceSelector [object] Namespace selector label that is allowed to access the PostgreSQL primary node. This label will be used to identified the allowed namespace(s).
+      ## @param networkPolicy.ingressRules.primaryAccessOnlyFrom.podSelector [object] Pods selector label that is allowed to access the PostgreSQL primary node. This label will be used to identified the allowed pod(s).
+      ## @param networkPolicy.ingressRules.primaryAccessOnlyFrom.customRules [object] Custom network policy for the PostgreSQL primary node.
+      ##
+      primaryAccessOnlyFrom:
+        enabled: true
+        ## e.g:
+        ## podSelector:
+        ##   label: access
+        ##
+        podSelector: 
+          app.kubernetes.io/instance: sc-rest-api
+          app.kubernetes.io/name: sc-rest-api
+    egressRules:
+      # Deny connections to external. This is not compatible with an external database.
+      denyConnectionsToExternal: true
 
-global:
-  postgresql:
-    auth:
-      postgresPassword: "password"
-      username: "postgresadmin"
-      password: "password"
-      database: "SoftwareContainerization"
-primary:
-  persistence:
-      mountPath: /sc/postgresql
-      accessModes:
-        - ReadWriteOnce
-      size: 8Gi
 
 imagePullSecrets: []
 nameOverride: ""
@@ -49,10 +66,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: NodePort
-  port: 80
 
 ingress:
   enabled: false

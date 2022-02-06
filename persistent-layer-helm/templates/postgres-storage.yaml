@@ -12,10 +12,10 @@ metadata:
   {{- end }}
 spec:  
   capacity: 
-    storage: {{ .Values.primary.persistence.size | quote }} 
+    storage: {{ .Values.postgresql.primary.persistence.size | quote }} 
   accessModes:
-        {{- range .Values.primary.persistence.accessModes }}
+        {{- range .Values.postgresql.primary.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
   hostPath: 
-    path: {{ .Values.primary.persistence.mountPath | quote }}
+    path: {{ .Values.postgresql.primary.persistence.mountPath | quote }}
