@@ -10,8 +10,6 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
-      protocol: TCP
-      nodePort: {{ .Values.service.nodePort }}
-      name: http
+
   selector:
     {{- include "sc-backend-chart.selectorLabels" . | nindent 4 }}

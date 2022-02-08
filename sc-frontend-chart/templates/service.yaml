@@ -9,7 +9,5 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: 80
-      protocol: TCP
-      name: http
   selector:
     {{- include "sc-frontend-chart.selectorLabels" . | nindent 4 }}
