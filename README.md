@@ -8,8 +8,8 @@
 <hr>
 
 ## Directory Guide
-* #### k8s-configuration
-* #### persistent-k8s-configuration
+* #### k8s-configuration:configuration for microk8s
+* #### persistent-k8s-configuration:configuration for microk8s
 * #### persistent-layer-helm: Helm chart for postgresql using bitnami/postgresql as subchart
 * #### rbac: Kubernetes Role Based Access Control configurations
 * #### react-frontend: ReactJS frontend source code
